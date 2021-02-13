@@ -3,5 +3,5 @@ class Comment < ApplicationRecord
   belongs_to :user
   has_rich_text :comment
 
-  validates :comment, presence: true
+  # validates :comment, presence: true
 end
