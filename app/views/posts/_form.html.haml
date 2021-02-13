@@ -1,4 +1,11 @@
-= simple_form_for @post do |f|
-  = f.input :title
-  = f.input :content
-  = f.submit
+.p-4.bg-white
+  .row
+    = simple_form_for @post do |f|
+      = f.input :title, error: "title is required"
+      <br
+      = f.rich_text_area :content, required: true, error: "content is required"
+      - if @post.errors&.messages[:content].present?
+        %span.text-danger.mb-4.mt-4{style: 'font-size: 0.875em'} content is required
+      <br>
+      = f.button :submit, class: "button"
+      = link_to "Cancel", root_path, class: "btn button"
