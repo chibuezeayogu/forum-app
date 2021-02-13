@@ -1,0 +1,8 @@
+.p-4.bg-white
+  .row
+    %h1 Edit Reply
+
+    = simple_form_for([@post, @comment]) do |f| 
+      = f.rich_text_area :comment
+      <br>
+      = f.button :submit, class: "button"
