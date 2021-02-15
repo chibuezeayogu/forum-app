@@ -6,5 +6,6 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   validates :title, presence: true
-  validates :content, presence: true
+
+  paginates_per 10
 end
