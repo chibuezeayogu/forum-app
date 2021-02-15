@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
 
   def index
-    @posts = Post.all.order(created_at: :desc)
+    @posts = Post.order(created_at: :desc).page page
   end
 
   def new
@@ -16,7 +16,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
 
     if @post.save
-      redirect_to @post
+      redirect_to root_path
     else
       render :new
     end
@@ -44,5 +44,9 @@ private
 
   def set_post
     @post = Post.find(params[:id])
+  end
+
+  def page
+    params[:page] || 1
   end
 end

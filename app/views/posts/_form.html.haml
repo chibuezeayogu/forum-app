@@ -1,9 +1,9 @@
-.p-4.bg-white
-  .row
+.row.p-4.bg-white.justify-content-md-center
+  .col.col-sm-10.col.md-8
     = simple_form_for @post do |f|
       = f.input :title, error: "title is required"
-      <br
+      <br>
       = f.rich_text_area :content
       <br>
-      = f.button :submit, class: "button"
-      = link_to "Cancel", root_path, class: "btn button"
+      = f.button :submit, class: "nav-buttons"
+      = link_to "Cancel", root_path, class: "btn nav-buttons"

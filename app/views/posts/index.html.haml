@@ -1,9 +1,12 @@
-#posts
+.row.justify-content-md-center.bg-white
   - @posts.each do |post|
-    .post
-      %h2.title= link_to post.title, post
+    .col.col-sm-10.col-md-10.col-lg-10.p-4.border-bottom
+      %h2.link-title= link_to post.title, post
       = post.content
-      %p.date
+      %p.date.mt-2
         Published at
         = time_ago_in_words(post.created_at)
         = post.user.email
+  .col.col-sm-10.col-md-10.col-lg-10.p-4.text-danger
+    = paginate @posts
+  
