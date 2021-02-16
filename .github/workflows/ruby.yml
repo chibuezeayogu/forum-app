@@ -1,19 +1,14 @@
 name: Ruby
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ $default-branch ]
+  pull_request:
+    branches: [ $default-branch ]
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    services:
-      db:
-        image: postgres:11
-        ports: ['5432:5432']
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
     strategy:
       matrix:
         ruby-version: ['2.6']
@@ -27,18 +22,7 @@ jobs:
       with:
         ruby-version: 2.6.x
         bundler-cache: true
-      # uses: ruby/setup-ruby@473e4d8fe5dd94ee328fdfca9f8c9c7afc9dae5e
-      # with:
-      #   ruby-version: ${{ matrix.ruby-version }}
-      #   bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-      env:
-        DATABASE_URL: postgres://postgres:@localhost:5432/forum_app_test
-        RAILS_ENV: test
-        RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+    - name: Install dependencies
+      run: bundle install
     - name: Run tests
-      run: |
-        sudo apt-get -yqq install libpq-dev
-        gem install bundler
-        bundle install --jobs 4 --retry 3
-        bundle exec rails db:prepare
-        bundle exec rspec
+      run: bundle exec rspec
