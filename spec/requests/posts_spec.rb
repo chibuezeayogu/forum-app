@@ -17,7 +17,7 @@ RSpec.describe "Posts", type: :request do
   describe "GET /posts/new" do
     before { sign_in user }
 
-    context "when a user is signed in" do
+    context "when a signed in user clicks the New Post button" do
       it "should render new view" do
         get "/posts/new", params: {}
 
@@ -30,8 +30,8 @@ RSpec.describe "Posts", type: :request do
   describe "POST /posts" do
     before { sign_in user }
 
-    context "when a user is signed in" do
-      it "should render new view" do
+    context "when a signed in user adds title and content and clicks the Create Post button" do
+      it "should create post and redirect to index view" do
         post "/posts", params: { post: { title: Faker::Lorem.word, content: Faker::Lorem.paragraph } }
 
         expect(response).to have_http_status(:found)
@@ -43,8 +43,8 @@ RSpec.describe "Posts", type: :request do
   describe "GET /posts/:id" do
     let(:post) { create(:post) }
 
-    context "when post id is passed" do
-      it "should render show view" do
+    context "when a signed in user clicks on a post on Hope page " do
+      it "should render show view with the clicked post" do
         get "/posts/#{post.id}", params: {}
 
         expect(response).to have_http_status(:ok)
@@ -57,8 +57,8 @@ RSpec.describe "Posts", type: :request do
     before { sign_in user }
     let(:post) { create(:post) }
 
-    context "when post record is updated" do
-      it "should render show view" do
+    context "when a signed in user updates a post" do
+      it "should update the records and render show view" do
         put "/posts/#{post.id}", params: { post: { content: Faker::Lorem.paragraph } }
 
         expect(response).to have_http_status(:found)
@@ -71,8 +71,8 @@ RSpec.describe "Posts", type: :request do
     before { sign_in user }
     let(:post) { create(:post) }
 
-    context "when post record is deleted" do
-      it "should render index view" do
+    context "when a signed in user clickes the delete post button" do
+      it "should delete the post and render index view" do
         delete "/posts/#{post.id}", params: {}
 
         expect(response).to have_http_status(:found)

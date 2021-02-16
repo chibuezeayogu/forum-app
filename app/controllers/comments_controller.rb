@@ -9,9 +9,9 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id
 
     if @comment.save
-      redirect_to post_path(@post)
+      redirect_to @post
     else
-      redirect_to post_path(@post), notice: "Nothing"
+      redirect_to @post
     end
   end
 
@@ -27,12 +27,12 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    redirect_to poat_path(@post)
+    redirect_to post_path(@post)
   end
 
 private
   def comment_params
-    params[:comment].permit(:comment)
+    params.require(:comment).permit(:comment)
   end
 
   def set_post
