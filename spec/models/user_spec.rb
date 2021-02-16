@@ -3,5 +3,8 @@
 require "rails_helper"
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "ActiveRecord Associations" do
+    it { is_expected.to have_many(:posts) }
+    it { is_expected.to have_many(:comments) }
+  end
 end

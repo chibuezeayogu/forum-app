@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @post.comments.create(comment_params)
-    @comment.user_id = current_user.id if current_user
+    @comment.user_id = current_user.id
 
     if @comment.save
       redirect_to post_path(@post)
@@ -21,7 +21,7 @@ class CommentsController < ApplicationController
     if @comment.update(comment_params)
       redirect_to post_path(@post)
     else
-      render "edit"
+      render :edit
     end
   end
 

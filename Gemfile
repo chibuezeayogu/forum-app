@@ -55,8 +55,12 @@ group :development do
 end
 
 group :test do
-  gem "factory_bot_rails"
+  gem "rails-controller-testing"
+  gem "shoulda-callback-matchers"
+  gem "shoulda-matchers", "~> 4.0"
+  gem "database_cleaner-active_record"
   gem "faker", git: "https://github.com/faker-ruby/faker.git", branch: "master"
+  gem "factory_bot_rails"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
