@@ -6,12 +6,12 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @post.comments.create(comment_params)
-    @comment.user_id = current_user.id if current_user
+    @comment.user_id = current_user.id
 
     if @comment.save
-      redirect_to post_path(@post)
+      redirect_to @post
     else
-      redirect_to post_path(@post), notice: "Nothing"
+      redirect_to @post
     end
   end
 
@@ -21,18 +21,18 @@ class CommentsController < ApplicationController
     if @comment.update(comment_params)
       redirect_to post_path(@post)
     else
-      render "edit"
+      render :edit
     end
   end
 
   def destroy
     @comment.destroy
-    redirect_to poat_path(@post)
+    redirect_to post_path(@post)
   end
 
 private
   def comment_params
-    params[:comment].permit(:comment)
+    params.require(:comment).permit(:comment)
   end
 
   def set_post
