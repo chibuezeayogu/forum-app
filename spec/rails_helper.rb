@@ -1,4 +1,16 @@
 # frozen_string_literal: true
+# simplecov has to be required + configured first to capture execution
+require "simplecov"
+# require "simplecov_small_badge" # disabled until upstream pr is merged into gem
+
+SimpleCov.start("rails") do
+  SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new(
+    [
+      SimpleCov::Formatter::HTMLFormatter, # normal formatter
+      # SimpleCovSmallBadge::Formatter, # disabled until upstream pr is merged into gem
+    ]
+  )
+end
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require "spec_helper"
